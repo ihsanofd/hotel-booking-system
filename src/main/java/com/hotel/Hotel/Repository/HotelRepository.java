@@ -9,5 +9,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
       Optional<Hotel> findHotelById(Integer hotelId);
 
+      List<Hotel> findByHotelNameContainingIgnoreCase(String hotelName);
+
       List<Hotel> findByCityIgnoreCase(String cityName);
 }

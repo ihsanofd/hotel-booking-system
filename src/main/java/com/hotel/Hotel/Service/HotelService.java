@@ -64,4 +64,51 @@ public class HotelService {
 
         return hotelResponses;
     }
+
+
+
+
+    public List<HotelResponse> findHotel(String hotelName) {
+        List<Hotel> hotels= hotelRepository.findByHotelNameContainingIgnoreCase(hotelName);
+
+       List<HotelResponse> hotelResponse=new ArrayList<>();
+
+        for(Hotel hotel : hotels){
+            HotelResponse response=new HotelResponse();
+
+            response.setId(hotel.getId());
+            response.setHotelName(hotel.getHotelName());
+            response.setCity(hotel.getCity());
+            response.setAddress(hotel.getAddress());
+            response.setDescription(hotel.getDescription());
+            response.setRating(hotel.getRating());
+
+            hotelResponse.add(response);
+        }
+
+        return hotelResponse;
+    }
+
+
+
+    public List<HotelResponse> findAllHotels() {
+
+        List<Hotel> hotels=hotelRepository.findAll();
+
+        List<HotelResponse> hotelResponses=new ArrayList<>();
+
+        for (Hotel hotel:hotels){
+            HotelResponse response=new HotelResponse();
+
+            response.setId(hotel.getId());
+            response.setHotelName(hotel.getHotelName());
+            response.setCity(hotel.getCity());
+            response.setAddress(hotel.getAddress());
+            response.setDescription(hotel.getDescription());
+            response.setRating(hotel.getRating());
+
+            hotelResponses.add(response);
+        }
+        return hotelResponses;
+    }
 }

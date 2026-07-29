@@ -28,4 +28,16 @@ public class HotelController {
         List<HotelResponse> responses=hotelService.findHotelsInCity(cityName);
         return new ResponseEntity<>(responses , HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<HotelResponse>> findHotelByName(@RequestParam String hotelName){
+        List<HotelResponse> responses = hotelService.findHotel(hotelName);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<HotelResponse>> findHotels(){
+        List<HotelResponse> responses=hotelService.findAllHotels();
+        return new ResponseEntity<>(responses , HttpStatus.CREATED);
+    }
 }
