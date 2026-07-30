@@ -7,14 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class RoomResponse {
+public class ReviewResponse {
 
     private Integer id;
-    private Integer capacity;
-    private String roomType;
-    private Double pricePerNight;
+    private String comment;
     private String hotelName;
-    private String roomNumber;
-
+    private Double rating;
 }

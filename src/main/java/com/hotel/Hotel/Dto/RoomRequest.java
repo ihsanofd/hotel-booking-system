@@ -13,5 +13,6 @@ public class RoomRequest {
     private String roomType;
     private Double pricePerNight;
     private Integer hotelId;
+    private String roomNumber;
 
 }

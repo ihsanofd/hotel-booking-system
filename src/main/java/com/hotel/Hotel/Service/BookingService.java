@@ -33,8 +33,6 @@ public class BookingService {
     private UserRepository userRepository;
 
 
-
-
     public BookingResponse addBooking(BookingRequest request) {
 
         User user=userRepository.findById(request.getUserId()).orElseThrow(
