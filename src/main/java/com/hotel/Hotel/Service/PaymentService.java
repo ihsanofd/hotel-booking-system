@@ -4,7 +4,6 @@ import com.hotel.Hotel.Dto.PaymentRequest;
 import com.hotel.Hotel.Dto.PaymentResponse;
 import com.hotel.Hotel.Enum.BookingStatus;
 import com.hotel.Hotel.Exception.BookingNotFoundException;
-import com.hotel.Hotel.Exception.PaymentAlreadyExistException;
 import com.hotel.Hotel.Model.Booking;
 import com.hotel.Hotel.Model.Payment;
 import com.hotel.Hotel.Repository.BookingRepository;
@@ -22,6 +21,8 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private BookingService bookingService;
 
     public PaymentResponse createPayment(PaymentRequest request) {
 
@@ -29,18 +30,16 @@ public class PaymentService {
                 ()->new BookingNotFoundException("Booking Not Found")
         );
 
-        if (booking.getStatus() != BookingStatus.CONFIRMED) {
-            throw new IllegalArgumentException("Payment can only be made for confirmed bookings");
+        if (booking.getStatus() != BookingStatus.PENDING) {
+            throw new IllegalArgumentException("Payment can only be made for pending bookings");
         }
 
         Optional<Payment> existing=paymentRepository.findByBookingId(booking.getId());
-        if (existing.isPresent()){
-            throw new PaymentAlreadyExistException("This booking already has a payment");
-        }
 
         Payment payment = new Payment();
             payment.setBooking(booking);
             Payment saved=paymentRepository.save(payment);
+            bookingService.updateStatus(booking.getId(), BookingStatus.CONFIRMED);
 
             PaymentResponse response=new PaymentResponse();
             response.setId(saved.getId());

@@ -47,4 +47,5 @@ public class BookingController {
         BookingResponse response=bookingService.updateStatus(bookingId ,status);
         return new ResponseEntity<>(response , HttpStatus.OK);
     }
+
 }

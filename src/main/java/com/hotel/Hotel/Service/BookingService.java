@@ -32,7 +32,6 @@ public class BookingService {
     @Autowired
     private UserRepository userRepository;
 
-
     public BookingResponse addBooking(BookingRequest request) {
 
         User user=userRepository.findById(request.getUserId()).orElseThrow(
@@ -53,11 +52,11 @@ public class BookingService {
         }
 
 
-        Booking booking=new Booking();
 
+        Booking booking=new Booking();
         booking.setRoom(room);
         booking.setUser(user);
-        booking.setStatus(BookingStatus.CONFIRMED);
+        booking.setStatus(BookingStatus.PENDING);
         booking.setCheckInDate(request.getCheckInDate());
         booking.setCheckOutDate(request.getCheckOutDate());
 
